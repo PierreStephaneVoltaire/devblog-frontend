@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { useDispatch,useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
+import { GETPOSTS } from './features/Posts/store/Constants/ActionTypes';
+import Card from '@material-ui/core/Card';
+import { CardContent } from '@material-ui/core';
 
 function App() {
+  const dispatch:Dispatch<any>=useDispatch()
+  const posts=useSelector((state:any)=>state.posts)
+
+  useEffect(()=>{
+    dispatch({type:GETPOSTS})
+  },[])
   return (
     <div className="App">
+
+    <Card>
+    <CardContent>
+    {JSON.stringify(posts)}
+
+      </CardContent>
+    </Card>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
